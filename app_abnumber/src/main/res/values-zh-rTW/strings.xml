@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App_ABNumber</string>
+    <string name="inputNumber">請輸入數字</string>
+    <string name="button">傳送</string>
+    <string name="textView">任意4位數</string>
+    <string name="GuessedtextView">已猜過數字</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">App_ABNumber</string>
+    <string name="inputNumber">input your number</string>
+    <string name="button">Submit</string>
+    <string name="textView">any 4 digits</string>
+    <string name="GuessedtextView">guessed numbers</string>
+</resources>
