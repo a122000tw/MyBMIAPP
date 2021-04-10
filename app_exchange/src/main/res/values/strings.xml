@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">App_Exchange</string>
-    <string name="app_title">Please input your change</string>
+    <string name="app_title">Please enter TWD</string>
     <string name="app_input_twd">10000</string>
     <string name="app_button">Exchange</string>
     <string name="app_result_title">Exchange</string>
