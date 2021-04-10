@@ -36,6 +36,7 @@
         android:layout_width="277dp"
         android:layout_height="204dp"
         android:layout_marginTop="70dp"
+        android:onClick="onClick"
         android:src="@drawable/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
