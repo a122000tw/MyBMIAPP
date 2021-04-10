@@ -21,7 +21,7 @@ class ResultActivity : AppCompatActivity() {
         text_result.text = luckyIndex.toString()
         // 將現在時間放到 View元件(text_time)中
         // 時間格式轉換
-        val time = SimpleDateFormat("HH : mm : ss", Locale.TAIWAN)
+        val time = SimpleDateFormat("yyyy/MM/dd HH : mm : ss", Locale.TAIWAN)
         text_time.text = time.format(Date())
 
 

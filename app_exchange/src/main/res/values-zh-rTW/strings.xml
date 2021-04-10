@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">匯率程式</string>
+    <string name="app_title">請輸入金額</string>
+    <string name="app_input_twd">10000</string>
+    <string name="app_button">換匯</string>
+    <string name="app_result_title">兌換金額</string>
+</resources>

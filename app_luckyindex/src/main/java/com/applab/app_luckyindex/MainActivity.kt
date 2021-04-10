@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
     fun onClick(view: View) {
         Log.d(TAG, input_number.text.toString())
-        val intent = Intent(context,ResultActivity::class.java)
+        val intent = Intent(context, ResultActivity::class.java)
         // 將input_number 所輸入的資料傳送到下一個 Activity (ResultActivity)
         intent.putExtra("number", input_number.text.toString())
         // 轉跳 Activity
