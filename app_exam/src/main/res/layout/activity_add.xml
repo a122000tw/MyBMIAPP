@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Please input tou name"
+            android:hint="Please input you name"
             android:textSize="30dp"/>
 
     </LinearLayout>
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="Score"
+            android:text="Score:"
             android:textSize="30dp"/>
 
         <EditText
@@ -48,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Please input tou score"
+            android:inputType="numberSigned"
+            android:hint="Please input you score"
             android:textSize="30dp"/>
 
 
@@ -57,9 +58,11 @@
 
 
     <Button
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:onClick="onClick"
         android:textSize="30dp"
         android:text="Add"/>
 

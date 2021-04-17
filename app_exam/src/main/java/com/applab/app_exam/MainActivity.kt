@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import kotlinx.android.synthetic.main.content_main.*
-import org.w3c.dom.Text
+
 
 // User data class 包含學生姓名, 考試分數
 data class User(val name: String, val score: Int)
@@ -73,8 +73,13 @@ class MainActivity : AppCompatActivity() {
         // listView onItemClick 監聽
         list_view.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                val user = parent?.getItemAtPosition(position)
-                Toast.makeText(context, user.toString(), Toast.LENGTH_SHORT).show()
+                var user = parent?.getItemAtPosition(position)
+                adapter.remove(user as User)
+                val intent = Intent(context, AddActivity::class.java)
+                // 轉跳 Activity
+                openResultActivityCustom.launch(intent)
+                list_view.adapter = adapter
+
             }
 
         // listView onItemLongClick 監聽
@@ -94,6 +99,13 @@ class MainActivity : AppCompatActivity() {
     private val openResultActivityCustom =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == 101) {
+                    val name = result.data?.getStringExtra("name").toString()
+                    val score = result.data?.getStringExtra("score").toString().toInt()
+                    val user = User(name, score)
+                    users.add(user)
+
+                    // 重整 adapter
+                    (list_view.adapter as ArrayAdapter<User>).notifyDataSetChanged()
 
                 }
             }
