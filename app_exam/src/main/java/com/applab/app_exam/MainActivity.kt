@@ -2,18 +2,38 @@ package com.applab.app_exam
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.ComponentActivity
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import kotlinx.android.synthetic.main.content_main.*
+import org.w3c.dom.Text
+
+// User data class 包含學生姓名, 考試分數
+data class User(val name: String, val score: Int)
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var context: Context
+
+    // 建立 users 資料集合
+
+    // 其結果會放在 listView 物件中
+    val users = mutableListOf(
+        User("John", 100),
+        User("Mary", 90),
+        User("Joy", 45),
+        User("Helen", 80),
+        User("Tom", 55)
+        )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,9 +47,48 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(context, AddActivity::class.java)
             // 轉跳 Activity
             openResultActivityCustom.launch(intent)
-
-
         }
+
+        // listView 的適配器
+        val adapter = object: ArrayAdapter<User?>(
+                context,
+                R.layout.item_main,//android.R.layout.simple_list_item_2,
+                R.id.text1,
+                users as List<User?>) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val v = super.getView(position, convertView, parent)
+                val name = v.findViewById<View>(R.id.text1) as TextView
+                val score = v.findViewById<View>(R.id.text2) as TextView
+                name.text = getItem(position)?.name
+                score.text = getItem(position)?.score.toString()
+                if (getItem(position)?.score!! < 60) {
+                    score.setTextColor(Color.RED)
+                }
+                return v
+            }
+        }
+        // listView 配置適配器
+        list_view.adapter = adapter
+
+        // listView onItemClick 監聽
+        list_view.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                val user = parent?.getItemAtPosition(position)
+                Toast.makeText(context, user.toString(), Toast.LENGTH_SHORT).show()
+            }
+
+        // listView onItemLongClick 監聽
+        list_view.onItemLongClickListener =
+            AdapterView.OnItemLongClickListener { parent, view, position, id ->
+                val user = parent?.getItemAtPosition(position)
+                Toast.makeText(context, "Long click" + user.toString(), Toast.LENGTH_SHORT).show()
+                adapter.remove(user as User)
+                // 重新配置 adapter
+                list_view.adapter = adapter
+                true // true 不觸發 onClick , false 觸發 onClick
+            }
+
+
     }
 
     private val openResultActivityCustom =
