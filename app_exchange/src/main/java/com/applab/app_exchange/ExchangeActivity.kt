@@ -28,13 +28,11 @@ class ExchangeActivity : AppCompatActivity() {
                 result_amount.text = "%.2f".format(usd)
                 val time = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.TAIWAN)
                 result_time.text = time.format(Date())
-                text_symbol.text = "${text_symbol.text} ${symbol}"
+                text_symbol.text = "${text_symbol.text} $symbol"
 
             })
 
         }).start()
-
-
     }
 
     fun onClick(view: View) {
