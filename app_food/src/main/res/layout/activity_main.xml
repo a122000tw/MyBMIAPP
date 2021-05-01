@@ -83,7 +83,6 @@
     </LinearLayout>
 
     <GridView
-
         android:id="@+id/grid_view"
         tools:listitem="@layout/item"
         android:numColumns="auto_fit"
