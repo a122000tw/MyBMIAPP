@@ -5,6 +5,11 @@
         android:icon="@drawable/ic_info"
         android:title="Info"/>
 
+    <!--
+     加入 android:menuCategory="secondary"
+     讓按下 <- 會回到前一頁，否則會回到首頁
+    -->
+
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_setting"
