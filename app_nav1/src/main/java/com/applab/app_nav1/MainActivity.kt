@@ -38,11 +38,17 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setupWithNavController(navController)
         // Drawer menu 的配置
         nav_view.setupWithNavController(navController)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
         //return navController.navigateUp() || super.onSupportNavigateUp()
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -53,11 +59,6 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.options_menu, menu)
-        return true
     }
 
 }
