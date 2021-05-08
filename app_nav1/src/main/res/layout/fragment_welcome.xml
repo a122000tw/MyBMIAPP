@@ -21,7 +21,7 @@
 
         <TextView
             android:layout_toRightOf="@+id/hi"
-            android:id="@+id/text_view"
+            android:id="@+id/text_view_username"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:text="ooo"
             android:layout_width="wrap_content"

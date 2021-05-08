@@ -3,12 +3,14 @@ package com.applab.app_nav1
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,16 +25,33 @@ class MainActivity : AppCompatActivity() {
 
         // Bottom bar 切換時會變色
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment)
+            setOf(R.id.homeFragment, R.id.searchFragment),
+            drawer_layout // 加入 drawer layout 要設定
         )
 
         // 手動加入 ActionBar
         toolbar.setTitleTextColor(Color.WHITE)
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // 底部 bottom menu 的配置
+        bottom_nav.setupWithNavController(navController)
+        // Drawer menu 的配置
+        nav_view.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        //return navController.navigateUp() || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
 }
