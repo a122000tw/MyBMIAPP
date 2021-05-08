@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
-    android:padding="16dp"
+    android:padding="20dp"
     android:orientation="vertical"
     tools:context=".WelcomeFragment">
 
@@ -15,14 +15,14 @@
         <TextView
             android:id="@+id/hi"
             android:text="Hi "
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_toRightOf="@+id/hi"
             android:id="@+id/text_view"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:text="ooo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -31,9 +31,10 @@
 
     <TextView
         android:id="@+id/color"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#FF0000"
         android:text="Red"/>
 
     <Button
