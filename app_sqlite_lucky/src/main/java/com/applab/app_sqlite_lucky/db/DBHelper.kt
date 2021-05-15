@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.applab.app_sqlite.models.Student
+import com.applab.app_sqlite.models.Lucky
 import java.util.*
 import kotlin.Exception
 
@@ -15,100 +15,100 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     // SingleTon (companion object相當於 Java 的 static inner class 靜態內部類別)
     companion object {
         val DATABASE_VERSION = 1 // 資料庫版本
-        val DATABASE_NAME = "MyDB.db" // 資料庫名稱
+        val DATABASE_NAME = "MyLuckyDB.db" // 資料庫名稱
 
-        // 建立資料表 Student 的 SQL 語句
-        val SQL_CREATE_STUDENT:String = "" +
-                "CREATE TABLE Student(" +
+        // 建立資料表 Lucky 的 SQL 語句
+        val SQL_CREATE_LUCKY = "" +
+                "CREATE TABLE Lucky(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "name TEXT," +
-                "score INTEGER," +
+                "color TEXT," +
+                "num INTEGER," +
                 "ct BIGINT)"
-        // 刪除資料表 Student 的 SQL 語句
-        val SQL_DELETE_STUDENT = "DROP TABLE IF EXISTS Student"
+        // 刪除資料表 Lucky 的 SQL 語句
+        val SQL_DELETE_LUCKY = "DROP TABLE IF EXISTS Lucky"
 
     }
     // 預設資料表的建立
     override fun onCreate(db: SQLiteDatabase?) {
         // db 指的是 MyDB.db 資料庫容器
-        db?.execSQL(SQL_CREATE_STUDENT)
+        db?.execSQL(SQL_CREATE_LUCKY)
     }
     // 資料庫升級
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL(SQL_DELETE_STUDENT)
+        db?.execSQL(SQL_DELETE_LUCKY)
         onCreate(db)
     }
     // 新增資料
-    fun createStudent(name: String, score: Int) {
+    fun createLucky(color: String, num: Int) {
         // 取得資料庫
         val db = writableDatabase
         // 準備要新增的紀錄
         val values = ContentValues()
-        values.put("name", name)
-        values.put("score", score)
+        values.put("color", color)
+        values.put("num", num)
         values.put("ct", Date().time)
         // 新增到資料庫
         // nullColumnHack 是指若欄位是空白要放的內容為何?
         // action 此次新增的 id 值
-        val action = db.insert("Student", null, values)
+        val action = db.insert("Lucky", null, values)
         db.close()
-        Log.d("DB", "createStudent: action=" + action)
+        Log.d("DB", "createLucky: action=" + action)
     }
 
     // 修改資料
-    fun updateStudent(student: Student) {
+    fun updateLucky(lucky: Lucky) {
         val db = writableDatabase
         val values = ContentValues()
-        values.put("id", student.id)
-        values.put("name", student.name)
-        values.put("score", student.score)
-        values.put("ct", student.ct)
+        values.put("id", lucky.id)
+        values.put("color", lucky.color)
+        values.put("num", lucky.num)
+        values.put("ct", lucky.ct)
         // where 條件
         val selection = "id LIKE ?"
-        val selectionArgs = arrayOf(student.id.toString())
+        val selectionArgs = arrayOf(lucky.id.toString())
         // action 是指異動筆數
-        val action = db.update("Student", values, selection, selectionArgs)
+        val action = db.update("Lucky", values, selection, selectionArgs)
         db.close()
-        Log.d("DB", "updateStudent: action=" + action)
+        Log.d("DB", "updateLucky: action=" + action)
     }
 
     // 刪除資料
-    fun deleteStudent(id: Int) {
+    fun deleteLucky(id: Int) {
         val db = writableDatabase
         val selection = "id LIKE ?"
         val selectionArgs = arrayOf(id.toString())
-        val action = db.delete("Student", selection, selectionArgs)
+        val action = db.delete("Lucky", selection, selectionArgs)
         db.close()
-        Log.d("DB", "deleteStudent: action=" + action)
+        Log.d("DB", "deleteLucky: action=" + action)
     }
 
     // 查詢資料
-    fun readAllStudent(): List<Student> {
-        val students = ArrayList<Student>()
+    fun readOdds(): List<Lucky> {
+        val odds = ArrayList<Lucky>()
         val db = readableDatabase
         var cursor: Cursor? = null
         try {
-            cursor = db.rawQuery("select id, name, score, ct from Student", null)
+            cursor = db.rawQuery("select id, color, num, ct from Lucky", null)
             if(cursor!!.moveToFirst()) { // 將查詢指標移動到第一筆
                 while (cursor.isAfterLast == false) { // 當查詢指標不是最後一筆時
                     val id = cursor.getInt(cursor.getColumnIndex("id").toInt())
-                    val name = cursor.getString(cursor.getColumnIndex("name"))
-                    val score = cursor.getInt(cursor.getColumnIndex("score"))
+                    val color = cursor.getString(cursor.getColumnIndex("color"))
+                    val num = cursor.getInt(cursor.getColumnIndex("num"))
                     val ct = cursor.getLong(cursor.getColumnIndex("ct"))
-                    val student = Student(
-                        id, name, score, ct
+                    val lucky = Lucky(
+                        id, color, num, ct
                     )
-                    students.add(student)
+                    odds.add(lucky)
                     cursor.moveToNext()
 
                 }
             }
         } catch (e: Exception) {
-
+            e.printStackTrace()
         }
 
         db.close()
-        return students
+        return odds
     }
 
 }
