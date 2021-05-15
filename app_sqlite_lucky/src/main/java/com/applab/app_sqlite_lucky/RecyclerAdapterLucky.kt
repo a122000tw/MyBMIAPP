@@ -1,0 +1,49 @@
+package com.applab.app_sqlite_lucky
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.applab.app_sqlite.models.Lucky
+import kotlinx.android.synthetic.main.row.view.*
+
+class RecyclerAdapterLucky : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var items: List<Lucky> = ArrayList()
+    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        private val id: TextView = itemView.view_id
+        private val color: TextView = itemView.view_color
+        private val num: TextView = itemView.view_num
+
+        fun bind(lucky: Lucky) {
+            id.setText(lucky.id.toString())
+            color.setText(lucky.color)
+            num.setText(lucky.num.toString())
+        }
+    }
+
+    fun submitList(list: List<Lucky>) {
+        items = list
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return items.size
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val lucky = items[position]
+        when(holder) {
+            is ViewHolder -> {
+                holder.bind(lucky)
+            }
+        }
+    }
+
+
+}
