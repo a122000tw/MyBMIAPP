@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.applab.app_sqlite.models.Student
 import java.util.*
 
 // 撰寫與資料庫建立，升級，銷毀，與CRUD相關程序
@@ -46,9 +47,26 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         values.put("ct", Date().time)
         // 新增到資料庫
         // nullColumnHack 是指若欄位是空白要放的內容為何?
-        // action 異動筆數(此次影響資料表的紀錄數量)
+        // action 此次新增的 id 值
         val action = db.insert("Student", null, values)
+        db.close()
         Log.d("DB", "createStudent: action=" + action)
+    }
+
+    // 修改資料
+    fun updateStudent(student: Student) {
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put("id", student.id)
+        values.put("name", student.name)
+        values.put("score", student.score)
+        values.put("ct", student.ct)
+        // where 條件
+        val selection = "id LIKE ?"
+        val selectionArgs = arrayOf(student.id.toString())
+        val action = db.update("Student", values, selection, selectionArgs)
+        db.close()
+        Log.d("DB", "updateStudent: action=" + action)
     }
 
 }
